@@ -542,7 +542,8 @@ class InferenceServerGrpcClient : public InferenceServerClient {
 
   Error PreRunProcessing(
       const InferOptions& options, const std::vector<InferInput*>& inputs,
-      const std::vector<const InferRequestedOutput*>& outputs);
+      const std::vector<const InferRequestedOutput*>& outputs,
+      inference::ModelInferRequest* infer_request);
   void AsyncTransfer();
   void AsyncStreamTransfer();
 
@@ -566,7 +567,8 @@ class InferenceServerGrpcClient : public InferenceServerClient {
   std::shared_ptr<inference::GRPCInferenceService::Stub> stub_;
   // request for GRPC call, one request object can be used for multiple calls
   // since it can be overwritten as soon as the GRPC send finishes.
-  inference::ModelInferRequest infer_request_;
+  // Sijin: create in every request.
+  //   inference::ModelInferRequest infer_request_;
 };
 
 
